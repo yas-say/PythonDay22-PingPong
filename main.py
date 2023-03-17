@@ -1,6 +1,9 @@
 from turtle import Screen, Turtle
 from score import Score
 from paddle import Paddle
+from puck import Puck
+from time import sleep
+
 
 
 def draw_line(t1):
@@ -28,17 +31,21 @@ t = Turtle()
 draw_line(t)
 paddle1 = Paddle(1)
 paddle2 = Paddle(-1)
-
+puck_new = Puck()
 
 score1 = Score(-50, 250)
 score2 = Score(50, 250)
+flag = True
+while flag:
+
+    puck_new.move()
+    sleep(0.02)
+    screen.update()
+    if puck_new.distance(paddle1)<10:
+        puck_new.moveback()
 
 
 
-while score1.score < 5 or score2.score < 5:
 
-
-
-screen.update()
 
 screen.exitonclick()
