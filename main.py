@@ -47,22 +47,22 @@ screen.onkey(paddle2.s, "s")
 
 while flag:
 
-    sleep(0.1)
+    sleep(0.05)
     screen.update()
     puck_new.move()
     print(f"x= {puck_new.xcor()}, y={puck_new.ycor()}")
     print(f"Heading= {puck_new.heading()}")
     #input()
     for _ in paddle1.segments:
-        if puck_new.distance(_)<30:
+        if puck_new.distance(_)<15:
             puck_new.movewest()
     for _ in paddle2.segments:
-        if puck_new.distance(_)<30:
+        if puck_new.distance(_)<15:
             puck_new.moveeast()
-    if puck_new.ycor() >= 260:
+    if puck_new.ycor() >= 270:
         # input()
         puck_new.movesouth()
-    if puck_new.ycor() <= -260:
+    if puck_new.ycor() <= -270:
         puck_new.movenorth()
     if puck_new.xcor() > 490:
         score1.score_increment()
