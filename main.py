@@ -36,16 +36,47 @@ puck_new = Puck()
 score1 = Score(-50, 250)
 score2 = Score(50, 250)
 flag = True
+
+
+screen.listen()
+screen.onkey(paddle1.up, "Up")
+screen.onkey(paddle1.down, "Down")
+screen.onkey(paddle2.w, "w")
+screen.onkey(paddle2.s, "s")
+
+
 while flag:
 
-    puck_new.move()
-    sleep(0.02)
+    sleep(0.1)
     screen.update()
-    if puck_new.distance(paddle1)<10:
-        puck_new.moveback()
-
-
-
+    puck_new.move()
+    print(f"x= {puck_new.xcor()}, y={puck_new.ycor()}")
+    print(f"Heading= {puck_new.heading()}")
+    #input()
+    for _ in paddle1.segments:
+        if puck_new.distance(_)<30:
+            puck_new.movewest()
+    for _ in paddle2.segments:
+        if puck_new.distance(_)<30:
+            puck_new.moveeast()
+    if puck_new.ycor() >= 260:
+        # input()
+        puck_new.movesouth()
+    if puck_new.ycor() <= -260:
+        puck_new.movenorth()
+    if puck_new.xcor() > 490:
+        score1.score_increment()
+        puck_new.reset(180)
+    if puck_new.xcor() < -495:
+        score2.score_increment()
+        puck_new.reset(0)
+    if score1.score == 2:
+        score1.game_over("Player 1 wins")
+        flag = False
+    if score2.score == 2:
+        score2.game_over("Player 2 wins")
+        flag = False
 
 
 screen.exitonclick()
+
